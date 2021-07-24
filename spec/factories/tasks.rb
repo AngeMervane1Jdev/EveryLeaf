@@ -1,12 +1,16 @@
 FactoryBot.define do
-    factory :task do
+    factory :task1 ,class: Task do
       # Veuillez modifier le contenu suivant en fonction du nom de colonne réellement créé
-      title { 'test_title' }
+      title { 'Task1' }
       detail { 'test_detail' }
     end
-    factory :second_task, class: Task do
-        title { 'Title 2 créé par l\'usine' }
-        detail {'Default content 2 made by Factory'}
+    factory :task2, class: Task do
+        title { 'Task2' }
+        detail {'Default '}
     end
+    factory :task3, class: Task do
+      title { 'Task3' }
+      detail {'Default '}
+     end
 
   end
