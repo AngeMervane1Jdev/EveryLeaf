@@ -9,7 +9,7 @@ RSpec.describe 'Task management function', type: :model do
         expect(task).not_to be_valid
       end 
     it 'If the task content and details are described validation will pass' do
-        task = Task.new(title: 'this is', detail: 'very good')
+        task = Task.new(title: 'this is', detail: 'very good.')
         expect(task).to be_valid
     end
 end
