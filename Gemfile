@@ -14,9 +14,9 @@ gem 'factory_bot_rails'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
-# gem 'bcrypt', '~> 3.1.7'
-  gem 'selenium-webdriver'
-  gem 'webdrivers'
+gem 'bcrypt', '~> 3.1.7'
+gem 'selenium-webdriver'
+gem 'webdrivers'
 # gem 'mini_magick', '~> 4.8'
 # gem 'capistrano-rails', group: :development
 

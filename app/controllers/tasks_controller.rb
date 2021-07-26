@@ -4,9 +4,9 @@ class TasksController < ApplicationController
   # GET /tasks or /tasks.json
   def index
     if params[:sort_expired]
-      @tasks=Task.all.orderByDeadline 
+      @tasks=current_user.tasks.orderByDeadline.kaminari(params[:page]) 
     else
-      @tasks = Task.all.ordered
+      @tasks=current_user.tasks.ordered.kaminari(params[:page]) 
     end  
   end
   
@@ -63,32 +63,32 @@ class TasksController < ApplicationController
       elsif session[:search]['title'].present?
         # If status, priority were specified
         if session[:search]['status'].present? && session[:search]['priority'].present?
-          Task.search_sort(session[:search]['title']).status_sort(session[:search]['status']).priority_sort(session[:search]['priority']).kaminari(params[:page])
+          Task.current_user.search_sort(session[:search]['title']).status_sort(session[:search]['status']).priority_sort(session[:search]['priority']).kaminari(params[:page])
           # If only priority and title is specified
         elsif session[:search]['status'].present?
-          Task.search_sort(session[:search]['title']).status_sort(session[:search]['status']).kaminari(params[:page])
+          Task.current_user.search_sort(session[:search]['title']).status_sort(session[:search]['status']).kaminari(params[:page])
           #If only priority and title are specified
         elsif session[:search]['priority'].present?
-          Task.search_sort(session[:search]['title']).status_sort(session[:search]['priority']).kaminari(params[:page])
+          Task.current_user.search_sort(session[:search]['title']).status_sort(session[:search]['priority']).kaminari(params[:page])
         else
-          Task.search_sort(session[:search]['title']).kaminari(params[:page])
+          Task.current_user.search_sort(session[:search]['title']).kaminari(params[:page])
         end
         
         # The title is empty and the status is specified
       elsif session[:search]['status'].present?
         # If priority and status are specified
         if session[:search]['priority'].present?
-          Task.status_sort(session[:search]['status']).priority_sort(session[:search]['priority']).kaminari(params[:page])
+          Task.current_user.search_sort(session[:search]['status']).priority_sort(session[:search]['priority']).kaminari(params[:page])
           # If only priority is specified
         else 
-          Task.status_sort(session[:search]['status']).kaminari(params[:page])
+          Task.current_user.search_sort(session[:search]['status']).kaminari(params[:page])
         end
         
         # title, status is empty, and priority is specified
       elsif session[:search]['priority'].present?
-        Task.priority_sort(session[:search]['priority']).kaminari(params[:page])
+        Task.current_user.priority_sort(session[:search]['priority']).kaminari(params[:page])
       else
-        Tak.kaminari(params[:page])
+        Task.current_user.kaminari(params[:page])
       end
     end
   end
