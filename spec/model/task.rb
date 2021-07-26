@@ -5,7 +5,7 @@ RSpec.describe 'Task management function', type: :model do
        expect(task).not_to be_valid
     end
     it 'If the content is empty, validation will not pass' do
-        task = Task.new(title: 'somme thing', detail: '',DateTime.now+1)
+        task = Task.new(title: 'somme thing', detail: '',deadline:DateTime.now+1)
         expect(task).not_to be_valid
       end 
     it 'If the task content and details are described validation will pass' do
