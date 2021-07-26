@@ -2,7 +2,7 @@ class Task < ApplicationRecord
     validates :title,:detail, null:false,presence: true, length: { minimum: 1 }
     enum status: {
         unstarted: 0,
-        in_progress: 1,
+        progress: 1,
         completed: 2
     }
     enum priority: {
@@ -19,6 +19,6 @@ class Task < ApplicationRecord
 
     scope :priority_sort, -> (search_priority){ where(priority: search_priority) }
 
-  # kaminari関連
-  scope :kaminari, -> (kaminari_page){ page(kaminari_page).per(5) }
+     scope :kaminari, -> (kaminari_page){ page(kaminari_page).per(5) }
+     scope :current_user_sort,->(current_user_id){where(user_id: current_user_id)}
 end

@@ -2,9 +2,6 @@
 <style>
   th{
     font-size: 18px;
-    border-left: 2px solid black;
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
   } 
 </style>
 
@@ -54,9 +51,9 @@
         <td><%= task.created_at %></td>
         <td><%= task.status %></td>
         <td><%= task.priority %></td>
-        <td><%= link_to 'Show', task ,class:'btn btn-outline-primary'%></td>
-        <td><%= link_to 'Edit', edit_task_path(task), class:'btn btn-outline-warning'%></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } ,class:'btn btn-outline-danger'%></td>
+        <td><%= link_to 'Show', task ,class:'btn btn-primary'%></td>
+        <td><%= link_to 'Edit', edit_task_path(task), class:'btn btn-warning'%></td>
+        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } ,class:'btn btn-danger'%></td>
       </tr>
     <% end %>
   </tbody>
