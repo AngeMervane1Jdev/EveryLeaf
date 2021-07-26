@@ -20,6 +20,24 @@
     <%= form.label :detail %>
     <%= form.text_area :detail %>
   </div>
+  <div class="field">
+    <%= form.label :deadline %>
+    <%= form.datetime_select :deadline,
+        use_month_numbers: true,
+        start_year: Time.current.year,
+        end_year: Time.current.year + 10,
+        default: DateTime.now,
+        date_separator: '/'
+      %>
+  </div>
+  <div class="field status">
+    <%= form.label :status, 'Status' %>
+    <%= form.select :status, Task.statuses.keys %>
+  </div>
+  <div class="field prority">
+    <%= form.label :priority, 'Priorité' %>
+    <%= form.select :priority, Task.priorities.keys %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>
