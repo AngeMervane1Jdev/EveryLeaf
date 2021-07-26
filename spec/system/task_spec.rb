@@ -21,7 +21,7 @@ RSpec.describe 'Task management function', type: :system do
     context 'When searching with the scope method' do
       it "You can search for titles with the scope method" do
         visit root_path
-        fill_in 'search_word', with: 'Task1'
+        fill_in 'search_title', with: 'Task1'
         click_on 'search'
         # expect(Task.get_by_taskname('task').count).to eq 1
         expect(page).to have_content 'Task1'
@@ -32,7 +32,7 @@ RSpec.describe 'Task management function', type: :system do
         click_on 'search'
         expect(page).to have_content 'Task2'
       end
-      it "Priority search is possible with the scope method" do
+      it "You can search the priority with the scope method" do
         visit root_path
         select 'Low', from: 'search_priority'
         click_on 'search'
@@ -40,14 +40,14 @@ RSpec.describe 'Task management function', type: :system do
       end
       it "Both title and status can be searched with the scope method" do
         visit root_path
-        fill_in 'search_word', with: 'Task3'
+        fill_in 'search_title', with: 'Task3'
         select 'completed', from: 'search_status'
         click_on 'search'
         expect(page).to have_content 'Task3'
       end
       it "Both title and priority can be searched with the scope method" do
         visit root_path
-        fill_in 'search_word', with: 'Task3'
+        fill_in 'search_title', with: 'Task3'
         select 'High', from: 'search_priority'
         click_on 'search'
         sleep 1
