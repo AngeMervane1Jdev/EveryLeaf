@@ -1,28 +1,32 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
-
+  
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all.ordered
+    if params[:sort_expired]
+      @tasks=Task.all.orderByDeadline 
+    else
+      @tasks = Task.all.ordered
+    end  
   end
-
+  
   # GET /tasks/1 or /tasks/1.json
   def show
   end
-
+  
   # GET /tasks/new
   def new
     @task = Task.new
   end
-
+  
   # GET /tasks/1/edit
   def edit
   end
-
+  
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
-
+    
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: "Task was successfully created." }
@@ -33,7 +37,62 @@ class TasksController < ApplicationController
       end
     end
   end
-
+  #----------------------
+  def search
+    session[:search] = {'title' => params[:search_title], 'status' => params[:search_status], 'priority' => params[:search_priority]}
+    @tasks = researched.ordered
+    @search_title = session[:search]['title']
+    render :index
+  end
+  
+  def sort
+    @tasks = researched.ordered
+    @search_title = session[:search]['title']  if session[:search].present?
+    session[:search] = nil
+    render :index
+  end
+  
+  
+  def researched
+    if session[:search].present?
+      # If all searches are empty
+      if session[:search]['title'].blank? && session[:search]['status'].blank? && session[:search]['priority'].blank?
+        Task.kaminari(params[:page])
+        
+        # The title has been entered
+      elsif session[:search]['title'].present?
+        # If status, priority were specified
+        if session[:search]['status'].present? && session[:search]['priority'].present?
+          Task.search_sort(session[:search]['title']).status_sort(session[:search]['status']).priority_sort(session[:search]['priority']).kaminari(params[:page])
+          # If only priority and title is specified
+        elsif session[:search]['status'].present?
+          Task.search_sort(session[:search]['title']).status_sort(session[:search]['status']).kaminari(params[:page])
+          #If only priority and title are specified
+        elsif session[:search]['priority'].present?
+          Task.search_sort(session[:search]['title']).status_sort(session[:search]['priority']).kaminari(params[:page])
+        else
+          Task.search_sort(session[:search]['title']).kaminari(params[:page])
+        end
+        
+        # The title is empty and the status is specified
+      elsif session[:search]['status'].present?
+        # If priority and status are specified
+        if session[:search]['priority'].present?
+          Task.status_sort(session[:search]['status']).priority_sort(session[:search]['priority']).kaminari(params[:page])
+          # If only priority is specified
+        else 
+          Task.status_sort(session[:search]['status']).kaminari(params[:page])
+        end
+        
+        # title, status is empty, and priority is specified
+      elsif session[:search]['priority'].present?
+        Task.priority_sort(session[:search]['priority']).kaminari(params[:page])
+      else
+        Tak.kaminari(params[:page])
+      end
+    end
+  end
+  
   # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
     respond_to do |format|
@@ -46,7 +105,7 @@ class TasksController < ApplicationController
       end
     end
   end
-
+  
   # DELETE /tasks/1 or /tasks/1.json
   def destroy
     @task.destroy
@@ -55,15 +114,15 @@ class TasksController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_task
-      @task = Task.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def task_params
-      params.require(:task).permit(:title, :detail)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_task
+    @task = Task.find(params[:id])
+  end
+  
+  # Only allow a list of trusted parameters through.
+  def task_params
+    params.require(:task).permit(:title, :detail,:deadline,:priority,:status)
+  end
 end
