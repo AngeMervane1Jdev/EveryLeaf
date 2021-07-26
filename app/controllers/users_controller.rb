@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :logged_in, only: [:new, :create]
   before_action :not_logged_in, only: [:show]
   before_action :forget_user, only: [:show]
-
+ skip_before_action :login_required, only: [:new, :create]
   def new
     @user = User.new
   end
@@ -19,6 +19,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    if current_user.id != params[:id]
+      redirect_to tasks_path
+    end
     @tasks = @user.tasks.ordered.kaminari(params[:page])
   end
 
@@ -31,8 +34,10 @@ class UsersController < ApplicationController
   def forget_user
     if current_user.admin == false
       if current_user.id != params[:id].to_i
-        redirect_to tasks_path
+        redirect_to tasks_path, notice: 'You have successfully been registered'
       end
     end
   end
+
+
 end

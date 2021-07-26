@@ -14,9 +14,9 @@ RSpec.describe 'Task management function', type: :model do
     end
     describe 'You can search with the scope method' do
         before do
-          @task1 = FactoryBot.create(:task, title: 'task1',detail: 'something', deadline:DateTime.now,status:0,priority:1)
-          @task2 = FactoryBot.create(:second_task, title: 'task2',detail: 'something1', deadline:DateTime.now,status:1,priority:0)
-          @task3 = FactoryBot.create(:third_task, title: 'task3',detail: 'something2', deadline:DateTime.now,status:2,priority:1)
+          @task1 = FactoryBot.create(:task1, title: 'task1',detail: 'something', deadline:DateTime.now,status:0,priority:1)
+          @task2 = FactoryBot.create(:task2, title: 'task2',detail: 'something1', deadline:DateTime.now,status:1,priority:0)
+          @task3 = FactoryBot.create(:task3, title: 'task3',detail: 'something2', deadline:DateTime.now,status:2,priority:1)
         end
         it 'You can search for titles' do
           expect(Task.search_sort('task1')).to include(@task1)

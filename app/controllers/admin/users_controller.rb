@@ -26,7 +26,7 @@ class Admin::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to user_path(@user.id), notice: 'ユーザー情報を変更しました'
+      redirect_to user_path(@user.id), notice: 'Changed user information'
     else
       render :edit
     end
@@ -34,9 +34,9 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     if @user.destroy
-      redirect_to admin_users_path, notice: "#{@user.name}さんのユーザーデータを削除しました"
+      redirect_to admin_users_path, notice: "#{@user.name}Deleted user data"
     else
-      redirect_to admin_users_path, notice: "最低一人の管理者が必要なため#{@user.name}さんを削除できません"
+      redirect_to admin_users_path, notice: "Because at least one administrator is required #{@user.name}Cannot be deleted"
     end
   end
 
@@ -52,7 +52,7 @@ class Admin::UsersController < ApplicationController
 
   def not_admin_user
     if current_user.admin == false
-      redirect_to root_path, notice: 'アクセス権限がありません'
+      redirect_to root_path, notice: 'You do not have access'
     end
   end
 end
