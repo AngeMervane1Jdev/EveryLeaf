@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   def forget_user
     if current_user.admin == false
       if current_user.id != params[:id].to_i
-        redirect_to tasks_path, notice: 'You have successfully been registered'
+        redirect_to tasks_path, notice: 'You have successfully been registereed'
       end
     end
   end
