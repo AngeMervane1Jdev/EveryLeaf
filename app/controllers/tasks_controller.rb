@@ -3,7 +3,9 @@ class TasksController < ApplicationController
   
   # GET /tasks or /tasks.json
   def index
-    if params[:sort_expired]
+    if params[:sort_by_priority]
+      @tasks=Task.all.orderByPriority
+    elsif params[:sort_expired]
       @tasks=Task.all.orderByDeadline 
     else
       @tasks = Task.all.ordered
