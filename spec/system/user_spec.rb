@@ -42,7 +42,7 @@ RSpec.describe 'User registration / login / logout function', type: :system do
 
     context 'If you have user data while you are not logged in' do
       it 'Being able to log in' do
-        expect(current_path).to eq tasks_path
+        expect(page).to have_content 'There is no task created by this user'
       end
     end
 
