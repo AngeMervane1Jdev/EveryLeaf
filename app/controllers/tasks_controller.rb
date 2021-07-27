@@ -7,7 +7,8 @@ class TasksController < ApplicationController
       @tasks=current_user.tasks.orderByDeadline.kaminari(params[:page]) 
     else
       @tasks=current_user.tasks.ordered.kaminari(params[:page]) 
-    end  
+    end 
+    @user=current_user 
   end
   
   # GET /tasks/1 or /tasks/1.json
