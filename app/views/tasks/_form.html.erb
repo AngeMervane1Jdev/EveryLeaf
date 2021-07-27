@@ -1,4 +1,5 @@
-<%= form_with(model: task, local: true) do |form| %>
+<div class="container">
+  <%= form_with(model: task, local: true) do |form| %>
   <% if task.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
@@ -12,16 +13,16 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <h3><%= form.label :title %></h3>
+    <%= form.text_field :title ,class:'fs-16'%>
   </div>
 
   <div class="field">
-    <%= form.label :detail %>
+    <h3><%= form.label :detail %></h3>
     <%= form.text_area :detail %>
   </div>
-  <div class="field">
-    <%= form.label :deadline %>
+  <div class="field form-group">
+    <h3><%= form.label :deadline %></h3>
     <%= form.datetime_select :deadline,
         use_month_numbers: true,
         start_year: Time.current.year,
@@ -30,16 +31,18 @@
         date_separator: '/'
       %>
   </div>
-  <div class="field status">
-    <%= form.label :status, 'Status' %>
+  <div class="field status form-group">
+    <h3><%= form.label :status, 'Status' %></h3>
     <%= form.select :status, Task.statuses.keys %>
   </div>
-  <div class="field prority">
-    <%= form.label :priority, 'Priorité' %>
+  <div class="field prority form-group">
+    <h3><%= form.label :priority, 'Priorité' %></h3>
     <%= form.select :priority, Task.priorities.keys %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class:' btn btn-primary'%>
   </div>
 <% end %>
+
+</div>
