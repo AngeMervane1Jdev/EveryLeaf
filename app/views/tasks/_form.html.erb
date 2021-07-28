@@ -1,4 +1,6 @@
-<%= form_with(model: task, local: true) do |form| %>
+<div class="container">
+  <div class="text-center">
+    <%= form_with(model: task, local: true) do |form| %>
   <% if task.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
@@ -11,16 +13,16 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title,class:'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :detail %>
-    <%= form.text_area :detail %>
+    <%= form.text_field :detail ,class:'form-control' %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= form.label :deadline %>
     <%= form.datetime_select :deadline,
         use_month_numbers: true,
@@ -30,16 +32,25 @@
         date_separator: '/'
       %>
   </div>
-  <div class="field status">
+  <div class="field status form-group">
     <%= form.label :status, 'Status' %>
-    <%= form.select :status, Task.statuses.keys %>
+    <%= form.select :status, Task.statuses.keys  %>
   </div>
-  <div class="field prority">
+  <div class="field prority form-group">
     <%= form.label :priority, 'Priorité' %>
-    <%= form.select :priority, Task.priorities.keys %>
+    <%= form.select :priority, Task.priorities.keys,class:'form-control'  %>
   </div>
-
+  <div class="form_labels field form-group">
+    <%= form.label :label, 'Etiquette' %>
+      <% @labels.each do |label| %>
+        <%= form.check_box :label_ids, { multiple: true, checked: @task.labels.find_by(id: label.id).present?,  disabled: label[:disabled], include_hidden: false }, label[:id] %>
+        <span class="label"><%= label.name %></span>
+     <% end %>
+  </div>
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+
+  </div>
+</div>
