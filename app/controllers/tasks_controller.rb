@@ -7,13 +7,8 @@ class TasksController < ApplicationController
       @tasks=current_user.tasks.orderByDeadline.kaminari(params[:page]) 
     else
       @tasks=current_user.tasks.ordered.kaminari(params[:page]) 
-<<<<<<< HEAD
-    end 
-    @user=current_user 
-=======
     end  
     @labels = Label.where(user_id: nil).or(Label.where(user_id: current_user.id))
->>>>>>> step5
   end
   
   # GET /tasks/1 or /tasks/1.json
