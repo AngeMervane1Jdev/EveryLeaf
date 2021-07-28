@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :label1 do
+  factory :label1 ,class: Label do
     id { 1 }
     name { 'A' }
     user_id { nil }
