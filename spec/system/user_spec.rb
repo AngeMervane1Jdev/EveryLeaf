@@ -129,7 +129,6 @@ RSpec.describe 'User registration / login / logout function', type: :system do
 
         click_link 'Delete user data'
         page.driver.browser.switch_to.alert.accept
-
         expect(page).not_to have_content "test"
       end
     end

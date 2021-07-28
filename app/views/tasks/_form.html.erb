@@ -1,5 +1,7 @@
 <div class="container">
   <%= form_with(model: task, local: true) do |form| %>
+  <div class="text-center">
+    <%= form_with(model: task, local: true) do |form| %>
   <% if task.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
@@ -12,17 +14,17 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <h3><%= form.label :title %></h3>
-    <%= form.text_field :title ,class:'fs-16'%>
+  <div class="field form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title,class:'form-control' %>
   </div>
 
-  <div class="field">
-    <h3><%= form.label :detail %></h3>
-    <%= form.text_area :detail %>
+  <div class="field form-group">
+    <%= form.label :detail %>
+    <%= form.text_field :detail ,class:'form-control' %>
   </div>
   <div class="field form-group">
-    <h3><%= form.label :deadline %></h3>
+    <%= form.label :deadline %>
     <%= form.datetime_select :deadline,
         use_month_numbers: true,
         start_year: Time.current.year,
@@ -32,17 +34,36 @@
       %>
   </div>
   <div class="field status form-group">
-    <h3><%= form.label :status, 'Status' %></h3>
-    <%= form.select :status, Task.statuses.keys %>
+    <%= form.label :status, 'Status' %>
+    <%= form.select :status, Task.statuses.keys  %>
   </div>
   <div class="field prority form-group">
-    <h3><%= form.label :priority, 'Priorité' %></h3>
-    <%= form.select :priority, Task.priorities.keys %>
+    <%= form.label :priority, 'Priorité' %>
+    <%= form.select :priority, Task.priorities.keys,class:'form-control'  %>
   </div>
-
+  <div class="form_labels field form-group">
+    <%= form.label :label, 'Etiquettes' %><br>
+  
+     <div class="row">
+      <% @labels.each do |label| %>
+      <div class="col m-3 col-lg-2">
+          <p>
+            <%= form.check_box :label_ids, { multiple: true, checked: @task.labels.find_by(id: label.id).present?,  disabled: label[:disabled], include_hidden: false }, label[:id] %>
+          <%=form.label :label_ids, label.name,value:label[:id],style:'text-decoration:none'%>
+          </p>
+        </div>
+     <% end %>
+     </div>
+  
+</div>
   <div class="actions">
-    <%= form.submit class:' btn btn-primary'%>
+    <% if action_name=='new' %>
+    <%= form.submit 'Creer',class:'btn btn-primary' %>
+    <% else %>
+    <%= form.submit 'Modifier',class:'btn btn-primary' %>
+    <% end %>
+   
   </div>
-<% end %>
-
+    <% end %>
+  </div>
 </div>

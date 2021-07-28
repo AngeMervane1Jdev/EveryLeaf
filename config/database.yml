@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: manyou_development
+  database: exemple_development #manyou_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: manyou_test
+  database: exemple_test #manyou_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: manyou_production
-  username: manyou
-  password: <%= ENV['MANYOU_DATABASE_PASSWORD'] %>
+  database: explemple_production #manyou_production
+  username: exemple #manyou
+  password: <%= ENV['EXEMPLE_DATABASE_PASSWORD'] %>  #<%= ENV['MANYOU_DATABASE_PASSWORD'] %>

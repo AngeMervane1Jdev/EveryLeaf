@@ -1,5 +1,10 @@
 class Task < ApplicationRecord
     validates :title,:detail, null:false,presence: true, length: { minimum: 1 }
+
+    belongs_to :user
+    has_many :labelings, dependent: :destroy
+    has_many :labels, through: :labelings, source: :label
+
     enum status: {
         unstarted: 0,
         progress: 1,
@@ -9,6 +14,11 @@ class Task < ApplicationRecord
         Low: 0,
         Medium:1,
         High: 2
+    }
+    scope :label_sort, -> (search_label){
+        tasks = Labeling.where(label_id: search_label)
+        ids = tasks.map{ |task| task.task_id } 
+        where(id: ids)
     }
     scope :ordered, -> { order(created_at: :desc) }
     scope :orderByDeadline,->{order(deadline: :desc) }

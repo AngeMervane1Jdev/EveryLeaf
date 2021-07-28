@@ -1,28 +1,57 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @task.title %>
-</p>
-
-<p>
-  <strong>Detail:</strong>
-  <%= @task.detail %>
-</p>
-
-<p>
-  <strong>Deadline:</strong>
-  <%= @task.deadline %>
-</p>
-<p>
-  <strong>Priority:</strong>
-  <%= @task.priority %>
-</p>
-<p>
-  <strong>Status:</strong>
-  <%= @task.status %>
-</p>
+<style>
+  strong{
+    font-size: 20px;
+    font-family: fantasy;
+    color: black;
+  }
+  span{
+    color: black;
+    font-size: 18px;
+    font-family: 'Lucida';
+  }
 
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+</style>
+<div class="container">
+ <div class="container">
+  <div class="card container">
+    <p id="notice"><%= notice %></p>
+
+  <p>
+    <strong>Title:</strong>
+   <span> <%= @task.title %></span>
+  </p>
+  
+  <p>
+    <strong>Detail:</strong>
+ <span>   <%= @task.detail %></span>
+  </p>
+  
+  <p>
+    <strong>Deadline : </strong>
+    <span><%= @task.deadline %></span>
+  </p>
+  <p>
+    <strong>Priority : </strong>
+  <span>  <%= @task.priority %></span>
+  </p>
+  <p>
+    <strong>Status : </strong>
+   <span> <%= @task.status %></span>
+  </p>
+  <p>
+    <strong>Etiquettes associés : </strong>
+  <% if @task.labels.present? %>
+            <% @task.labels.each do |l| %>
+              <span class="label"><%= l.name %></span>
+            <% end %>
+  <% end %>
+  </p>
+  
+  
+  <%= link_to 'Edit', edit_task_path(@task) ,class:'btn btn-primary my-3  '%>
+  <%= link_to 'Back', tasks_path ,class:'btn btn-warning'%>
+  
+  </div>
+ </div>
+</div>
