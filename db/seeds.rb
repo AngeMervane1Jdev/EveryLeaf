@@ -6,11 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# User.create(name:"Admin",email:'myadmin@gmail.com',password:'adminpword0',admin:true)
-# @taskss=Task.where(user_id:nil)
-# @taskss.each do |e|
-# e.update(user_id:1)
-#end
+User.create(name:"Admin",email:'myadmin@gmail.com',password:'adminpword0',admin:true)
+@taskss=Task.where(user_id:nil)
+@taskss.each do |e|
+ e.update(user_id:1)
+end
 status = ['unstarted', 'progress', 'completed']
 priority = ['Low', 'Medium', 'High']
 
