@@ -48,9 +48,13 @@
      <% end %>
   </div>
   <div class="actions">
-    <%= form.submit %>
+    <% if action_name=='new' %>
+    <%= form.submit 'Creer',class:'btn btn-primary' %>
+    <% else %>
+    <%= form.submit 'Modifier',class:'btn btn-primary' %>
+    <% end %>
+   
   </div>
-<% end %>
-
+    <% end %>
   </div>
 </div>

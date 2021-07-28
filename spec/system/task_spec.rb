@@ -88,36 +88,4 @@ RSpec.describe 'Task management function', type: :system do
        end
      end
   end
-  describe 'Task registration screen' do
-    before do
-      @task1 = FactoryBot.create(:task1, title: 'task1')
-      @task2 = FactoryBot.create(:task2, title: 'task2')
-      @task3 = FactoryBot.create(:task3, title: 'task3')
-      @labeling1 = FactoryBot.create(:labeling1)
-      @labeling2 = FactoryBot.create(:labeling2)
-    end
-    context 'When you create a new task' do
-      it 'Data is saved' do
-        visit new_task_path
-        fill_in 'title', with: 'new task'
-        fill_in 'detail', with: 'new task detail'
-        check 'label'
-        click_on 'Modifier'
-         expect(page).to have_content 'new task'
-      end
-    end
-  end
-  describe 'Task details screen' do
-    before do
-      @task = FactoryBot.create(:task, name: 'task')
-      @labeling1 = FactoryBot.create(:labeling)
-    end
-     context 'When transitioning to any task details screen' do
-       it 'Transit to the page where the content of the corresponding task is displayed' do
-         visit task_path
-         click_on 'detail'
-         expect(page).to have_content 'task'
-       end
-     end
-  end
 end
